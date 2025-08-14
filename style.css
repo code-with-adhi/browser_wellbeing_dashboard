@@ -1,0 +1,185 @@
+/* style.css - New Dashboard Layout Version */
+
+/* 1. Define Color Palette and Variables */
+:root {
+  --bg-color: #f8f9fa;
+  --card-bg-color: #ffffff;
+  --primary-text-color: #212529;
+  --secondary-text-color: #6c757d;
+  --primary-color: #4a90e2;
+  --primary-hover-color: #357abd;
+  --accent-color-green: #28a745;
+  --border-color: #dee2e6;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --header-height: 60px;
+}
+
+/* 2. Automatic Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --card-bg-color: #1e1e1e;
+    --primary-text-color: #e0e0e0;
+    --secondary-text-color: #a0a0a0;
+    --border-color: #2b2b2b;
+  }
+}
+
+/* 3. General Body Styles */
+body {
+  font-family: "Inter", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--primary-text-color);
+  margin: 0;
+}
+
+/* 4. Main Dashboard Layout (Using CSS Grid) */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr; /* 240px sidebar, the rest for main content */
+  grid-template-rows: var(--header-height) 1fr; /* 60px header, the rest for the body */
+  grid-template-areas:
+    "header header"
+    "sidebar main";
+  height: 100vh;
+  width: 100vw;
+}
+
+/* 5. Header */
+.dashboard-header {
+  grid-area: header;
+  background-color: var(--card-bg-color);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+}
+.dashboard-header h1 {
+  font-size: 1.25rem;
+  justify-content: space-between;
+}
+#logoutButton {
+  background-color: rgb(226, 4, 4);
+  color: ivory;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.header-brand .logo-img {
+  height: 40px; /* A smaller logo for the header */
+}
+#logoutButton:hover {
+  background-color: var(--primary-text-color);
+}
+
+/* 6. Sidebar */
+.dashboard-sidebar {
+  grid-area: sidebar;
+  background-color: var(--card-bg-color);
+  border-right: 1px solid var(--border-color);
+  padding: 2rem;
+}
+.dashboard-sidebar h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: var(--secondary-text-color);
+  letter-spacing: 1px;
+  margin-top: 0;
+}
+.time-range-toggle,
+.chart-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 1.5rem;
+}
+.time-range-toggle button,
+.chart-toggle button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  color: var(--secondary-text-color);
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.time-range-toggle button:hover,
+.chart-toggle button:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+.time-range-toggle button.active {
+  background-color: var(--accent-color-green);
+  border-color: var(--accent-color-green);
+  color: white;
+}
+.chart-toggle button.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+/* 7. Main Content Area */
+.dashboard-main {
+  grid-area: main;
+  padding: 2rem;
+  overflow-y: auto; /* Allows scrolling if content is too tall */
+}
+#dashboardTitle {
+  margin-top: 0;
+}
+.chart-container {
+  width: 100%;
+  max-width: 900px;
+  height: 70vh; /* Relative to viewport height */
+}
+
+/* 8. Responsive Layout for Mobile */
+@media (max-width: 768px) {
+  .dashboard-layout {
+    grid-template-columns: 1fr; /* Sidebar and main content are now one column */
+    grid-template-rows: var(--header-height) auto 1fr; /* Header, then sidebar, then main */
+    grid-template-areas:
+      "header"
+      "sidebar"
+      "main";
+  }
+  .dashboard-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+  }
+  .dashboard-sidebar h2 {
+    display: none; /* Hide 'Controls' title on mobile */
+  }
+  .time-range-toggle,
+  .chart-toggle {
+    flex-direction: row; /* Buttons go side-by-side on mobile */
+    margin-top: 0;
+  }
+  .time-range-toggle button,
+  .chart-toggle button {
+    text-align: center;
+    flex-grow: 1; /* Make buttons share space equally */
+  }
+  .dashboard-main {
+    padding: 1rem;
+  }
+}
+
+/* You will also need your login page styles if they are in the same file */
+/* For simplicity, this assumes login page styles are separate or not needed here */

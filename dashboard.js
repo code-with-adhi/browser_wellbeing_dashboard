@@ -16,7 +16,7 @@ const pieBtn = document.getElementById("pieChartBtn");
 async function fetchAndRenderDashboard(range = "today") {
   const token = localStorage.getItem("authToken");
   if (!token) {
-    window.location.href = "/login.html";
+    window.location.href = "/";
     return;
   }
 
@@ -32,7 +32,7 @@ async function fetchAndRenderDashboard(range = "today") {
 
     if (!response.ok) {
       localStorage.removeItem("authToken");
-      window.location.href = "/login.html";
+      window.location.href = "/";
       return;
     }
 
@@ -200,5 +200,5 @@ pieBtn.addEventListener("click", () => {
 // Logout button
 document.getElementById("logoutButton").addEventListener("click", () => {
   localStorage.removeItem("authToken");
-  window.location.href = "/login.html";
+  window.location.href = "/";
 });
